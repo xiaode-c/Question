@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block left_content %}
+<div>
+    <h1>{{question.content}}</h1>
+    <p>{{question.author.name}}</p>
+    <p>{{question.created_time}}
+    <hr>标签
+    <p>
+        {% for tag in question.tags %}
+        <span class="tag">{{tag.name}}</span>
+        {% endfor %}
+    </p>
+
+    <hr>
+    <h2>评论</h2>
+
+    <div>
+        {% for com in comments %}
+        <p>{{com.content}}</p>
+        {% endfor %}
+    </div>
+    <hr>
+    <h2>回答</h2>
+    <div>
+        {% for ans in answers %}
+        <p>{{ans.content}}</p>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block left_content %}
+<div>
+    <h1>{{tag.name}}</h1>
+    {% for author in tag.author %}
+    <span>{{author.name}} </span>
+    {% endfor %}
+</div>
+
+{% endblock %}

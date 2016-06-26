@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+
+{% block left_content %}
+<div class="row">
+    {% for tag in tags %}
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading"><a href="{{url_for('main.tag', name=tag.name)}}">{{tag.name}}</a></div>
+            <div class="panel-body">
+                {% for user in tag.author %}
+                <p>{{user.name}}</p>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

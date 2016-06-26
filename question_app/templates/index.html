@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% import "_macros.html" as macros %}
+{% block left_content %}
+    <div class="questions">
+    {% for question in questions %}
+        <div class="question">
+            <span class="author">{{question.author.name}}</span>
+            <span class="created_time">{{question.created_time}}</span>
+            <h2 class="title">
+                <a href="{{url_for('main.question_detail', id=question.id)}}">
+                    {{ question.content | truncate(100, end='...') }}
+                </a>
+            </h2>
+
+
+            <p class="tags">
+                {% for tag in question.tags %}
+                <a href="{{url_for('main.tag', name=tag.name)}}"><span class="tag">{{tag.name}}</span></a>
+                {% endfor %}
+
+                <a href="" class="question-info">１个回答</a>
+                <a href="" class="question-info">１条评论</a>
+                <a href="" class="question-info">关注＋</a>
+            </p>
+
+        </div>
+    {% endfor %}
+    {{macros.pagination_widget(pagination, 'main.index')}}
+    </div>
+{% endblock %}
+
+{% block scripts %}
+
+    $(document).ready(function() {
+        var time = document.getElementsByClassName("created_time");
+        for (var i=0;i<time.length;i++) {
+            time[i].innerHTML = moment(time[i].innerHTML).fromNow();
+        }
+    });
+{% endblock %}
