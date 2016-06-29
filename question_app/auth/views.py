@@ -5,52 +5,6 @@ from ..models import Question, Comment, Answer, Tag, User
 from flask_login import login_user, logout_user, current_user, login_required
 from forms import RegisterForm
 from ..email import send_email
-# import smtplib
-# from email import encoders
-# from email.header import Header
-# from email.mime.text import MIMEText
-# from email.utils import parseaddr, formataddr
-
-# from .. import mail
-# from threading import Thread
-# from flask.ext.mail import Message
-
-# def send_async_email(app, msg):
-#     with app.app_context():
-#         mail.send(msg)
-
-# def send_email(to, subject, template, **kwargs):
-#     msg = Message(current_app.config['FLASKY_MAIL_SUBJECT_PREFIX'] + subject,
-#     sender=current_app.config['FLASKY_MAIL_SENDER'], recipients=[to])
-#     msg.body = render_template(template + '.txt', **kwargs)
-#     msg.html = render_template(template + '.html', **kwargs)
-#     thr = Thread(target=send_async_email, args=[current_app, msg])
-#     thr.start()
-#     return thr
-
-
-
-# def _format_addr(s):
-#     name, addr = parseaddr(s)
-#     return formataddr(( \
-#         Header(name, 'utf-8').encode(), \
-#         addr.encode('utf-8') if isinstance(addr, unicode) else addr))
-
-
-# def send_email(from_addr, to_addr, subject, password, template):
-#     msg = MIMEText(render_template(template + '.html'),'html','utf-8')
-#     msg['Subject'] = subject
-#     msg['From'] = _format_addr(u'<%s>' % from_addr)
-#     msg['To'] = _format_addr(u'<%s>' % to_addr)
-#     msg['Subject'] = Header(subject, 'utf-8').encode()
-
-#     smtp = smtplib.SMTP()
-#     smtp.connect('smtp.163.com')
-#     server.set_debuglevel(1)
-#     smtp.login(from_addr, password)
-#     smtp.sendmail(from_addr, to_addr, msg.as_string())
-#     smtp.quit()
-
 
 @auth.route("/login", methods=["GET", "POST"])
 def login():
@@ -86,7 +40,7 @@ def register():
         user.password=form.password.data
         user.save()
         token = user.generate_confirmation_token()
-        send_email(user.email, 'COnfirm Your Account',
+        send_email(user.email, 'Confirm Your Account',
                     'confirm',
                     user=user,
                     token=token)
@@ -97,7 +51,7 @@ def register():
 @auth.route('/confirm/<token>')
 @login_required
 def confirm(token):
-    if current_user.confirmd:
+    if current_user.confirmed:
         return redirect(url_for('main.index'))
     if current_user.confirm(token):
         flash('You confirmed your account.Thanks!')
