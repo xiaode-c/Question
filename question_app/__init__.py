@@ -3,9 +3,11 @@
 from flask import Flask
 from flask.ext.login import LoginManager
 # from flask.ext.moment import Moment
+from flask.ext.mail import Mail
 from config import config
 
 login_manager = LoginManager()
+mail = Mail()
 # moment = Moment()
 
 
@@ -14,6 +16,7 @@ def create_app(config_name="default"):
     app.config.from_object(config[config_name])
 
     login_manager.init_app(app)
+    mail.init_app(app)
     # moment.init_app(app)
     #from question_app.model import db\
     from main import main as main_blueprint

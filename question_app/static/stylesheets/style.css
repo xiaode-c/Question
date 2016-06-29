@@ -4,44 +4,74 @@
 }
 
 /* line 6, ../sass/style.scss */
+header nav.navbar {
+  margin-bottom: 0px;
+}
+
+/* line 10, ../sass/style.scss */
+.left-content {
+  background-color: white;
+}
+/* line 13, ../sass/style.scss */
+.left-content .content-nav {
+  margin-top: 40px;
+  height: 40px;
+  width: 100%;
+  background-color: #e5e5e5;
+}
+/* line 19, ../sass/style.scss */
+.left-content .content-nav .navbar-nav li a {
+  line-height: 40px;
+  padding: 0px 15px;
+  color: #000;
+}
+/* line 25, ../sass/style.scss */
+.left-content .content-nav .navbar-nav li a:hover {
+  border-bottom: 1px solid red;
+  background-color: #e5e5e5;
+}
+
+/* line 33, ../sass/style.scss */
 a {
   text-decoration: none;
   color: black;
 }
 
-/* line 11, ../sass/style.scss */
+/* line 38, ../sass/style.scss */
 .body {
   font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
+  background-color: #F0F0F0;
 }
-/* line 14, ../sass/style.scss */
+/* line 42, ../sass/style.scss */
 .body .questions {
-  margin: 50px 5px;
+  margin: 40px 5px;
+  padding: 20px 20px;
 }
-/* line 16, ../sass/style.scss */
+/* line 45, ../sass/style.scss */
 .body .questions .question {
   border-bottom: 1px solid #eee;
   margin-bottom: 20px;
 }
-/* line 19, ../sass/style.scss */
+/* line 48, ../sass/style.scss */
 .body .questions .question .title {
   margin: 10px 0;
 }
-/* line 28, ../sass/style.scss */
+/* line 57, ../sass/style.scss */
 .body .questions .question .author {
   font-size: 14px;
   color: #999;
 }
-/* line 33, ../sass/style.scss */
+/* line 62, ../sass/style.scss */
 .body .questions .question .created_time {
   font-size: 14px;
   color: #999;
   float: right;
 }
-/* line 39, ../sass/style.scss */
+/* line 68, ../sass/style.scss */
 .body .questions .question .tags {
   margin: 2px 0;
 }
-/* line 41, ../sass/style.scss */
+/* line 70, ../sass/style.scss */
 .body .questions .question .tags .tag {
   color: #39739d;
   background-color: #E1ECF4;
@@ -49,19 +79,19 @@ a {
   padding: 2px 5px;
   font-size: 13px;
 }
-/* line 49, ../sass/style.scss */
+/* line 78, ../sass/style.scss */
 .body .questions .question .tags .tag:hover {
   background-color: #259;
   color: white;
 }
-/* line 55, ../sass/style.scss */
+/* line 84, ../sass/style.scss */
 .body .questions .question .tags .question-info {
   font-size: 13px;
   margin-left: 10px;
   text-decoration: none;
 }
 
-/* line 65, ../sass/style.scss */
+/* line 94, ../sass/style.scss */
 .panel {
   border: 1px solid #ddd;
   border-radius: 2%;

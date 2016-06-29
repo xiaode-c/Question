@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block left_content %}
+         {% for message in get_flashed_messages() %}
+        <div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ message }}
+        </div>
+        {% endfor %}
+
+<form method="post">
+     {{ form.csrf_token }}
+      <div class="form-group">
+        {{ form.email.label }} {{ form.email(class="form-control") }}
+      </div>
+       <div class="form-group">
+        {{ form.username.label }} {{ form.username(class="form-control") }}
+       </div>
+        <div class="form-group">
+        {{ form.password.label }} {{ form.password(class="form-control") }}
+        </div>
+         <div class="form-group">
+        {{ form.password2.label }} {{ form.password2(class="form-control") }}
+     </div>
+     {{form.submit(class="btn btn-default")}}
+    
+</form>
+
+{% endblock %}

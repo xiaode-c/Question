@@ -22,6 +22,12 @@
         <input type="checkbox" name="remember">记住</label>
     </div>
     <button type="submit" class="btn btn-default">登录</button>
+    <p>
+      未注册？
+      <a href="{{ url_for('auth.register') }}">
+      点击这里注册
+      </a>
+     </p>
   </form>
 </div>
 <div class="col-sm-4"></div>

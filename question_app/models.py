@@ -1,5 +1,8 @@
 # coding:utf-8
 
+from werkzeug.security import generate_password_hash, check_password_hash
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from flask import current_app
 from mongoengine import *
 from datetime import datetime
 from . import login_manager
@@ -67,7 +70,8 @@ class User(Document):
     name = StringField(max_length=80, required=True)
     email = StringField(required=True)
     created_time = DateTimeField(default=datetime.utcnow(), required=True)
-    password = StringField(max_length=80)
+    password_hash = StringField(max_length=128)
+    confirmed = BooleanField(default=False)
 
     @staticmethod
     def generate_fake(count=10):
@@ -97,6 +101,35 @@ class User(Document):
 
     def __unicode__(self):
         return self.name
+        
+    @property
+    def password(self):
+        raise AttributeError('password is not a readable attribute')
+    
+    @password.setter
+    def password(self, password):
+        self.password_hash = generate_password_hash(password)
+        
+    def verify_password(self, password):
+        return check_password_hash(self.password_hash, password)
+    
+    def generate_confirmation_token(self, expiration=3600):
+        s = Serializer(current_app.config['SECRET_KEY'], expiration)
+        return s.dumps({'confirm' : str(self.id)})
+    
+    def confirm(self, token):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        try:
+            data = s.loads(token)
+        except:
+            return False
+        if data.get('confirm') != str(self.id):
+            return False
+        self.confirmd = True
+        self.save()
+        return True 
+        
+    
 
 
 class Question(Document, PaginationMixin):

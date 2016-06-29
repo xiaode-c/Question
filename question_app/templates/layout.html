@@ -61,6 +61,9 @@
                         <li>
                             <a href="{{url_for('auth.login')}}">登录</a>
                         </li>
+                        <li>
+                            <a href="{{url_for('auth.register')}}">注册</a>
+                        </li>
                         {% endif %}
                     </ul>
                 </div>
@@ -74,9 +77,27 @@
             <div class="row">
                 <div class="col-md-1"></div>
                 <div class="col-md-7">
-                    {% block left_content %}
+                    <div class="left-content">
+                        <div class="content-nav">
+                            <ul class="nav navbar-nav">
+                                <li>
+                                    <a href="#">问题</a>
+                                </li>
+                                <li>
+                                    <a href="#">用户</a>
+                                </li>
+                                <li>
+                                    <a href="{{url_for('main.tags')}}">标签</a>
+                                </li>
+                                <li>
+                                    <a href="#">提问</a>
+                                </li>
+                            </ul>
+                        </div>
+                        {% block left_content %}
 
-                    {% endblock %}
+                        {% endblock %}
+                    </div>
                 </div>
                 <div class="col-md-3">
                     {% block right_content %}

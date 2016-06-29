@@ -3,6 +3,33 @@
     font-size: 21px;
 }
 
+header nav.navbar {
+    margin-bottom: 0px;
+}
+
+.left-content {
+    background-color: white;
+    
+    .content-nav {
+        margin-top: 40px;
+        height: 40px;
+        width: 100%;
+        background-color: #e5e5e5;
+        
+        .navbar-nav li a{
+            line-height: 40px;
+            padding: 0px 15px;
+            color: #000;
+        }
+        
+        .navbar-nav li a:hover {
+            border-bottom: 1px solid red;
+            background-color: #e5e5e5;
+        }
+        
+    }
+}
+
 a {
     text-decoration: none;
     color: black;
@@ -10,9 +37,11 @@ a {
 
 .body {
     font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
-
+    background-color: #F0F0F0;
+    
     .questions {
-        margin: 50px 5px;
+        margin: 40px 5px;
+        padding: 20px 20px;
         .question {
             border-bottom: 1px solid #eee;
             margin-bottom: 20px;
