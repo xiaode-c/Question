@@ -19,5 +19,3 @@ def send_email(to, subject, template, **kwargs):
     thr.start()
     return thr
 
-if __name__ == '__main__':
-    send_email("1178717119@qq.com", "欢迎来的QA","confirm")
