@@ -9,8 +9,8 @@ class DevelopmentConfig:
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD') or "email_password"
     MAIL_USE_TLS = False
     MAIL_USE_SSL = True
-    FLASKY_MAIL_SUBJECT_PREFIX = '[NOTE]'
-    FLASKY_MAIL_SENDER = 'NOTE Admin '
+    FLASKY_MAIL_SUBJECT_PREFIX = '<NOTE>'
+    FLASKY_MAIL_SENDER = 'NOTE Admin <%s>' % os.environ.get('MAIL_USERNAME')
 
 config = {
     "development": DevelopmentConfig,

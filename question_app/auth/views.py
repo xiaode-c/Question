@@ -39,6 +39,7 @@ def register():
                     name=form.username.data)
         user.password=form.password.data
         user.save()
+        print user.email
         token = user.generate_confirmation_token()
         send_email(user.email, 'Confirm Your Account',
                     'confirm',
@@ -54,6 +55,7 @@ def confirm(token):
     if current_user.confirmed:
         return redirect(url_for('main.index'))
     if current_user.confirm(token):
+        current_user.confirmed = True
         flash('You confirmed your account.Thanks!')
     else:
         flash('The confirmation link is Invalid or has expried.')

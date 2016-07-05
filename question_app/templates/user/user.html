@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block left_content %}
+<div class="panel panel-default">
+  <div class="panel-body">
+    <h1>{{user.name}}</h1>
+    <p>{{user.email}}</p>
+    <p><span>注册时间：</span>{{user.created_time.date()}}</p>
+    <p><span>状态：</span>{% if user.confirmed %}已验证{% else %}未验证账户{% endif %}</p>  
+  </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-body">     
+        <div class="user-desc">
+        {{user.about_me}}
+        </div>
+    </div>
+</div>
+<h2>你的问题：</h2>
+<ul>
+{% for q in questions %}
+<li><a href="{{url_for("main.question_detail", id=q.id)}}">{{q.content | truncate(100, end="...")}}</a></li>
+{% endfor %}
+</ul>
+<hr>
+<h2>你的标签:</h2>
+<ul>
+    {% for t in tags %}
+    <li><a href="{{url_for("main.tag", name=t.name)}}">{{t.name}}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}

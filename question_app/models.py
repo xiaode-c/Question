@@ -72,6 +72,7 @@ class User(Document):
     created_time = DateTimeField(default=datetime.utcnow(), required=True)
     password_hash = StringField(max_length=128)
     confirmed = BooleanField(default=False)
+    about_me = StringField()
 
     @staticmethod
     def generate_fake(count=10):
@@ -137,6 +138,7 @@ class Question(Document, PaginationMixin):
     created_time = DateTimeField(default=datetime.utcnow(), required=True)
     author = ReferenceField(User)
     tags = ListField(ReferenceField('Tag'))
+    follow = ListField(ReferenceField('User'))
 
     @staticmethod
     def generate_fake(count=50):
@@ -148,12 +150,14 @@ class Question(Document, PaginationMixin):
         tag_count = Tag.objects.count()
         for i in range(count):
             u = User.objects[randint(0, user_count-1)]
+            u2 = User.objects[randint(0, user_count-1)]
             t = Tag.objects[randint(0, tag_count-1)]
             quest = Question(content=fake.text(max_nb_chars=1000),
                              created_time=fake.date_time(),
                              author=u
                              )
             quest.tags = [t]
+            quest.follow = [u2]
             quest.save()
 
 
