@@ -73,6 +73,7 @@ class User(Document):
     password_hash = StringField(max_length=128)
     confirmed = BooleanField(default=False)
     about_me = StringField()
+    avatar = StringField(max_length=200, default='avatar.png')
 
     @staticmethod
     def generate_fake(count=10):
@@ -134,7 +135,9 @@ class User(Document):
 
 
 class Question(Document, PaginationMixin):
+    title = StringField(max_length=200, required=True)
     content = StringField()
+    html_content = StringField()
     created_time = DateTimeField(default=datetime.utcnow(), required=True)
     author = ReferenceField(User)
     tags = ListField(ReferenceField('Tag'))
@@ -152,7 +155,9 @@ class Question(Document, PaginationMixin):
             u = User.objects[randint(0, user_count-1)]
             u2 = User.objects[randint(0, user_count-1)]
             t = Tag.objects[randint(0, tag_count-1)]
-            quest = Question(content=fake.text(max_nb_chars=1000),
+            quest = Question(title=fake.text(max_nb_chars=200),
+                             content=fake.text(max_nb_chars=1000),
+                             html_content=fake.text(max_nb_chars=1000),
                              created_time=fake.date_time(),
                              author=u
                              )

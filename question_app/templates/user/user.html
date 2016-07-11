@@ -1,22 +1,35 @@
 {% extends "layout.html" %}
 
 {% block left_content %}
-<div class="panel panel-default">
-  <div class="panel-body">
-    <h1>{{user.name}}</h1>
-    <p>{{user.email}}</p>
-    <p><span>注册时间：</span>{{user.created_time.date()}}</p>
-    <p><span>状态：</span>{% if user.confirmed %}已验证{% else %}未验证账户{% endif %}</p>  
-  </div>
-</div>
 
-<div class="panel panel-default">
-    <div class="panel-body">     
+
+<div class="user-infos">
+
+
+      <div class="row">
+          <div class="col-xs-6 col-md-3">
+                <div id="user-avatar">
+                    <img src="{{url_for("user.uploaded_file", filename=user.avatar)}}" alt="avatar">
+                    <a class="btn btn-default btn-sm" href="{{url_for("user.change_avatar", name=user.name)}}" role="button">自定义头像</a>
+                </div>
+                
+          </div>
+          <div class="col-xs-12 col-md-9" class="user-info">
+                <h1>{{user.name}}</h1>
+                <p><span>邮箱：</span>{{user.email}}</p>
+                <p><span>注册时间：</span>{{user.created_time.date()}}</p>
+                <p><span>状态：</span>{% if user.confirmed %}已验证{% else %}未验证账户{% endif %}</p>  
+          </div>
+      </div>
+    
+
+      <hr role="separator" class="divider"></hr>
+    
         <div class="user-desc">
-        {{user.about_me}}
+            <h2>自我介绍</h2>
+            {{user.about_me}}
         </div>
-    </div>
-</div>
+
 <h2>你的问题：</h2>
 <ul>
 {% for q in questions %}
@@ -30,4 +43,5 @@
     <li><a href="{{url_for("main.tag", name=t.name)}}">{{t.name}}</a></li>
     {% endfor %}
 </ul>
+</div>
 {% endblock %}

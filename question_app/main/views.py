@@ -1,7 +1,22 @@
 
-from flask import render_template
+from flask import render_template, request, flash, redirect, url_for
+from flask_login import current_user
+from datetime import datetime
 from . import main
-from ..models import Question, Comment, Answer, Tag
+from ..models import Question, Comment, Answer, Tag, User
+
+def split_tag(tag_str):
+    tag_list = tag_str.split(',')
+    for i in range(0,len(tag_list)):
+        tag_list[i] = tag_list[i].strip()
+    tags = []
+    for tag in tag_list:
+        tag_obj = Tag.objects(name=tag).first()
+        if tag_obj is None:
+            tag_obj = Tag(name=tag, author=current_user)
+            tag_obj.save()
+        tags.append(tag_obj)
+    return tags
 
 
 @main.route("/", methods=['GET', 'POST'])
@@ -39,15 +54,22 @@ def tag(name):
     return render_template("tag.html", tag=tag)
 
 
-# @main.route("/ask")
-# def ask():
-#     if request.method == "POST":
-#         name = request.form.get("content")
-#         password = request.form.get("tags")
+@main.route("/ask", methods=["POST", "GET"])
+def ask():
+    if request.method == "POST":
+        content = request.form.get("content")
+        tags = split_tag(request.form.get("tags"))
+        
+        u = User.objects(name=current_user.name).first()
+        question = Question(content=content,
+                             created_time=datetime.now(),
+                             author=u
+                             )
+        
+        question.tags = tags
+        question.save()
+        return redirect(url_for("main.index"))
+    return render_template("answer.html")
 
-#         user = User.objects(name=name).first()
-#         if user is not None:
-#             login_user(user, remember_me)
-#             return redirect(request.args.get('next') or url_for("main.index"))
-#         flash('Invalid username or password')
-#     return render_template("answer.html")
+
+

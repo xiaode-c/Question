@@ -3,8 +3,10 @@
 
 {% block left_content %}
 <div class="row">
+    <span class="label label-default">Default</span>
+
     {% for tag in tags %}
-    <div class="col-md-4">
+    <!--<div class="col-md-4">
         <div class="panel panel-default">
             <div class="panel-heading"><a href="{{url_for('main.tag', name=tag.name)}}">{{tag.name}}</a></div>
             <div class="panel-body">
@@ -14,7 +16,9 @@
             </div>
         </div>
 
-    </div>
+    </div>-->
+    <span class="label label-default" class="tags">{{tag.name}}</span>
+
     {% endfor %}
 </div>
 {% endblock %}

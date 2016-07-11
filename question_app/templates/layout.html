@@ -45,14 +45,14 @@
                             <a href="{{url_for('main.tags')}}">标签</a>
                         </li>
                         <li>
-                            <a href="#">提问</a>
+                            <a href="{{url_for('main.ask')}}">提问</a>
                         </li>
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
                         {% if current_user.is_authenticated %}
                         <li>
-                            <a href="#">管理</a>
+                            <a href="{{url_for("user.user_info", name=current_user)}}">管理</a>
                         </li>
                         <li>
                             <a href="{{url_for('auth.logout')}}">注销</a>
@@ -94,9 +94,12 @@
                                 </li>
                             </ul>
                         </div>
+                        <div class="layout-left">
                         {% block left_content %}
+                        
 
                         {% endblock %}
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-3">

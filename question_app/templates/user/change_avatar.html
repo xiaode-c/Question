@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block left_content %}
+
+<div class="upload">
+    <!--<form class="form-horizontal" action="{{url_for("user.change_avatar", name=user.name)}}" method="post"　enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="exampleInputFile">File input</label>
+            <input type="file" name="avatar">
+            <p class="help-block">Example block-level help text here.</p>
+        </div>
+        <button type="submit" class="btn btn-default">上传头像</button>
+    </form>-->
+    <img src="{{url_for("user.uploaded_file", filename=current_user.avatar)}}" alt="" style="width:73px;height:73px">
+    <form class="form-horizontal" action="" method=post enctype=multipart/form-data>
+        <div class="form-group">
+         <label for="InputFile">上传头像</label>
+        <input type=file name=avatar>
+        </div>
+        <input type=submit class="btn btn-default" value="提交">
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block left_content %}
+<div class="user-infos">
+      <div class="row">
+          <div class="col-xs-6 col-md-3">
+                <div id="user-avatar">
+                    <img src="{{url_for("user.uploaded_file", filename=user.avatar)}}" alt="avatar">
+                    <a class="btn btn-default btn-sm" href="{{url_for("user.change_avatar", name=user.name)}}" role="button">自定义头像</a>
+                </div>
+          </div>
+          <div class="col-xs-12 col-md-9" class="user-info">
+               <form class="form-horizontal" action="{{url_for("user.user_settings", name=user.name)}}" method="post">
+                    <div class="form-group">
+                        <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+                        <div class="col-sm-10">
+                        <input type="email" class="form-control" value="{{user.email}}" name="email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputText" class="col-sm-2 control-label">自我介绍</label>
+                        <div class="col-sm-10">
+                            <textarea name="about_me"  class="form-control" rows="10">
+                                {{user.about_me}}
+                            </textarea>
+                        </div>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-default">更改</button>
+               </form>
+          </div>
+      </div>
+      
+</div>
+{% endblock %}

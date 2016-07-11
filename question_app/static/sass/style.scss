@@ -7,6 +7,10 @@ header nav.navbar {
     margin-bottom: 0px;
 }
 
+.layout-left {
+    margin: 10px 15px 10px 15px;
+}
+
 .left-content {
     background-color: white;
     
@@ -101,4 +105,27 @@ a {
     margin-right: 20px;
 
 }
+
+.user-infos {
+    margin-left: 20px;
+}
+
+#user-avatar {
+    margin-top: 20px;
+    
+    text-align: center;
+    img {
+        border-radius: 5px;
+        margin: 10px;
+        width: 73px;
+        height: 73px;
+        border: 2px solid #999;
+    }
+}
+
+// .user-info {
+//     float: left;
+// }
+
+
 
