@@ -4,6 +4,8 @@ from flask_login import current_user
 from datetime import datetime
 from . import main
 from ..models import Question, Comment, Answer, Tag, User
+from flask_login import login_required
+
 
 def split_tag(tag_str):
     tag_list = tag_str.split(',')
@@ -53,8 +55,8 @@ def tag(name):
     print questions
     return render_template("tag.html", tag=tag)
 
-
 @main.route("/ask", methods=["POST", "GET"])
+@login_required
 def ask():
     if request.method == "POST":
         content = request.form.get("content")
