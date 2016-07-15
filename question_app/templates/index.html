@@ -3,25 +3,36 @@
 {% block left_content %}
     <div class="questions">
     {% for question in questions %}
-        <div class="question">
-            <span class="author">{{question.author.name}}</span>
-            <span class="created_time">{{question.created_time}}</span>
-            <h2 class="title">
-                <a href="{{url_for('main.question_detail', id=question.id)}}">
-                    {{ question.content | truncate(100, end='...') }}
-                </a>
-            </h2>
+        <div class="question row">
+            <div class="left-img col-md-2">
+                <img src="{{url_for("user.uploaded_file", filename=question.author.avatar)}}" alt="">
+            </div>
+            <div class="right-content col-md-10">
+                
+                <span class="created_time">{{question.created_time}}</span>
+                <h2 class="title">
+                    <a href="{{url_for('main.question_detail', id=question.id)}}">
+                        {{ question.title }}
+                    </a>
+                </h2>
 
 
-            <p class="tags">
-                {% for tag in question.tags %}
-                <a href="{{url_for('main.tag', name=tag.name)}}"><span class="tag">{{tag.name}}</span></a>
-                {% endfor %}
+                <p class="tags">
+                    <span class="author"><a href="{{url_for('user.user_info', name=question.author.name)}}">{{question.author.name}}</a></span>
+                    {% for tag in question.tags %}
+                    <a href="{{url_for('main.tag', name=tag.name)}}"><span class="tag">{{tag.name}}</span></a>
+                    {% endfor %}
 
-                <a href="" class="question-info">１个回答</a>
-                <a href="" class="question-info">１条评论</a>
-                <a href="" class="question-info">关注＋</a>
-            </p>
+                    <a href="" class="question-info">１个回答</a>
+                    <a href="" class="question-info">１条评论</a>
+                    <!--<form action="" method="post">
+                        <a href="" class="question-info" value="{{question.id}}">关注＋</a>
+                        <input type="hidden" class="{{question.id}}" value="">
+                    </form>-->
+                    
+
+                </p>
+            </div>
 
         </div>
     {% endfor %}
@@ -36,5 +47,17 @@
         for (var i=0;i<time.length;i++) {
             time[i].innerHTML = moment(time[i].innerHTML).fromNow();
         }
+
+        $("a.reply").click(function(){
+            parent = $(this).attr("value");
+            console.log(parent)
+            $("input#parent").val(parent);
+        });
+
     });
+
+
+  
+
+
 {% endblock %}

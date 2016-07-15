@@ -6,7 +6,7 @@ from flask import current_app
 from werkzeug import secure_filename
 from flask import render_template, redirect, url_for, request, send_from_directory
 from flask_login import login_required
-from ..models import User, Question, Tag
+from ..models import User, Question, Tag, Comment, Answer
 import shortuuid
 
 def allowed_file(filename):
@@ -51,7 +51,8 @@ def user_info(name):
     usr = User.objects(name=name).first()
     questions = Question.objects(author=usr)
     tags = Tag.objects(author__in=[usr])
-    return render_template("user/user.html", user=usr, questions=questions, tags=tags)
+    answers = Answer.objects(author__in=[usr])
+    return render_template("user/user.html", user=usr, questions=questions, tags=tags, answers=answers)
 
 @user.route('/<name>/settings', methods=["POST", "GET"])
 @login_required

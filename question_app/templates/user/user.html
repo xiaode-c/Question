@@ -10,13 +10,17 @@
           <div class="col-xs-6 col-md-3">
                 <div id="user-avatar">
                     <img src="{{url_for("user.uploaded_file", filename=user.avatar)}}" alt="avatar">
+                    {% if current_user == user %}
                     <a class="btn btn-default btn-sm" href="{{url_for("user.change_avatar", name=user.name)}}" role="button">自定义头像</a>
+                    {% endif %}
                 </div>
                 
           </div>
           <div class="col-xs-12 col-md-9" class="user-info">
                 <h1>{{user.name}}</h1>
+                {% if current_user == user %}
                 <p><span>邮箱：</span>{{user.email}}</p>
+                {% endif %}
                 <p><span>注册时间：</span>{{user.created_time.date()}}</p>
                 <p><span>状态：</span>{% if user.confirmed %}已验证{% else %}未验证账户{% endif %}</p>  
           </div>
@@ -30,7 +34,10 @@
             {{user.about_me}}
         </div>
 
-<h2>你的问题：</h2>
+
+
+
+<!--<h2>你的问题：</h2>
 <ul>
 {% for q in questions %}
 <li><a href="{{url_for("main.question_detail", id=q.id)}}">{{q.content | truncate(100, end="...")}}</a></li>
@@ -42,6 +49,75 @@
     {% for t in tags %}
     <li><a href="{{url_for("main.tag", name=t.name)}}">{{t.name}}</a></li>
     {% endfor %}
-</ul>
+</ul>-->
 </div>
+<!--<div class="content-nav">
+    <ul class="nav navbar-nav">
+        <li>
+            <a href="#">问题</a>
+        </li>
+        <li>
+            <a href="#">用户</a>
+        </li>
+        <li>
+            <a href="{{url_for('main.tags')}}">标签</a>
+        </li>
+        <li>
+            <a href="#">提问</a>
+        </li>
+    </ul>
+</div>-->
+
+<div class="user-info-tab">
+    <ul class="nav nav-tabs" role="tablist" id="myTabs">
+    <li role="presentation" class="active"><a href="#my_questions" role="tab" data-toggle="tab">问题</a></li>
+    <li role="presentation"><a href="#my_answers" role="tab" data-toggle="tab">回答</a></li>
+    <li role="presentation"><a href="#my_tags" role="tab" data-toggle="tab">标签</a></li>
+    </ul>　
+    <div class="tab-content">
+        <div class="tab-pane active" id="my_questions">
+            <h2>你的问题：</h2>
+            <hr>
+            <ul>
+            {% for q in questions %}
+             
+            <li><a href="{{url_for("main.question_detail", id=q.id)}}">{{q.title}}</a>
+            <span style="font-size:14px;color:#bbb;">{{q.created_time.ctime()}}</span></li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="tab-pane" id="my_answers">
+        <h2>你的回答:</h2>
+            <hr>
+            <ul>
+                {% for a in answers %}
+                <h4><a href="">{{a.question.title}}</a> <span style="font-size:14px;color:#bbb;">{{a.question.created_time.ctime()}}</span></h4>
+                <li><a href="{{url_for('main.question_detail', id=a.question.id)}}#comments">{{a.content | truncate(100, True, end='...')}}</a></li>
+                <hr>
+                {% endfor %}
+            </ul>    
+        </div> 
+        <div class="tab-pane" id="my_tags">
+        <h2>你的标签:</h2>
+        <hr>
+            <ul>
+                {% for t in tags %}
+                <li><a href="{{url_for("main.tag", name=t.name)}}">{{t.name}}</a></li>
+                {% endfor %}
+            </ul>    
+        </div>    
+    </div>
+
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+
+    $('#myTabs a').click(function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+    })
+
 {% endblock %}

@@ -8,7 +8,9 @@ header nav.navbar {
 }
 
 .layout-left {
-    margin: 10px 15px 10px 15px;
+    margin: 30px 15px 10px 15px;
+    min-height: 800px;
+    padding-top: 40px;
 }
 
 .left-content {
@@ -44,11 +46,23 @@ a {
     background-color: #F0F0F0;
     
     .questions {
-        margin: 40px 5px;
-        padding: 20px 20px;
+        margin: 0px 5px 40px 5px;
+        padding: 0px 20px;
         .question {
             border-bottom: 1px solid #eee;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
+
+            .left-img img {
+                border-radius: 5px;
+                margin: 10px;
+                width: 50px;
+                height: 50px;
+                // border: 2px solid #999;
+            }
+            .right-content h2{
+                font-size: 16px;
+            }
+
             .title {
                 // font-family: webfont;
                 margin: 10px 0;
@@ -95,6 +109,29 @@ a {
     }
 }
 
+
+.all-tags {
+    padding: 20px;
+
+    .tags {
+                margin: 2px 0;
+                .tag {
+                    color: #39739d;
+                    background-color: #E1ECF4;
+                    border-radius: 30px;
+                    padding: 2px 10px;
+                    margin-left: 10px;
+                    font-size: 13px;
+
+
+                    &:hover {
+                        background-color: #259;
+                        color: white;
+                    }
+                }
+    }
+}
+
 .panel {
     border: 1px solid #ddd;
     border-radius: 2%;
@@ -127,5 +164,54 @@ a {
 //     float: left;
 // }
 
+.question-detail {
+    padding: 20px; 
 
+    .content {
+        margin: 20px;
+    }
+    .tags {
+                margin: 2px 0;
+                .tag {
+                    color: #39739d;
+                    background-color: #E1ECF4;
+                    border-radius: 30px;
+                    padding: 2px 5px;
+                    font-size: 13px;
+
+
+                    &:hover {
+                        background-color: #259;
+                        color: white;
+                    }
+                }
+    }
+
+    img {
+                border-radius: 5px;
+                margin: 10px;
+                width: 50px;
+                height: 50px;
+                // border: 2px solid #999;
+            }
+}
+
+.ask-page {
+    padding: 20px;
+}
+
+.user-info-tab {
+    margin-top: 50px;
+
+    #my_questions ul li {
+        margin-top: 10px; 
+        list-style: none;
+    }
+
+    #my_answers ul li {
+        margin-top: 10px; 
+        list-style: none;
+        
+    }
+}
 

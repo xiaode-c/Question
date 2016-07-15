@@ -1,29 +1,43 @@
 {% extends "layout.html" %}
 {% block left_content %}
-<div>
-    <h1>{{question.content}}</h1>
-    <p>{{question.author.name}}</p>
-    <p>{{question.created_time}}
+<div class="question-detail">
+    <h2>{{question.title}}</h2>
+    <div class="content">
+        {{question.content}}
+    </div>
+    <p><span><a href="{{url_for('user.user_info', name=question.author.name)}}">{{question.author.name}}</a></span>-<span> {{question.created_time.ctime()}}</span></p>
     <hr>标签
-    <p>
+    <p class="tags">
         {% for tag in question.tags %}
         <span class="tag">{{tag.name}}</span>
         {% endfor %}
     </p>
 
     <hr>
-    <h2>评论</h2>
+    <!--<h2>评论</h2>
 
     <div>
         {% for com in comments %}
         <p>{{com.content}}</p>
         {% endfor %}
     </div>
-    <hr>
+    <hr>-->
     <h2>回答</h2>
-    <div>
+    <div id="comments">
+        
         {% for ans in answers %}
-        <p>{{ans.content}}</p>
+        <div class="row">
+            <div class="col-md-2">
+                <img src="{{url_for("user.uploaded_file", filename=ans.author.avatar)}}" alt="">
+            </div>
+            <div class="col-md-10">
+                <p><a href="{{url_for('user.user_info', name=question.author.name)}}">{{ans.author.name}}</a></p>
+        
+                <p>{{ans.content}}</p>
+            </div>
+        </div>
+        
+        <hr>
         {% endfor %}
     </div>
 

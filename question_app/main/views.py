@@ -59,11 +59,14 @@ def tag(name):
 @login_required
 def ask():
     if request.method == "POST":
+        title = request.form.get("title")
         content = request.form.get("content")
         tags = split_tag(request.form.get("tags"))
         
+
         u = User.objects(name=current_user.name).first()
-        question = Question(content=content,
+        question = Question(title=title,
+                            content=content,
                              created_time=datetime.now(),
                              author=u
                              )
@@ -71,7 +74,10 @@ def ask():
         question.tags = tags
         question.save()
         return redirect(url_for("main.index"))
-    return render_template("answer.html")
+    return render_template("ask.html")
 
-
+@main.route("/follow", methods=["POST", "GET"])
+@login_required
+def follow():
+    pass
 
