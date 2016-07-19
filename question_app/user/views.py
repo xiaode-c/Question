@@ -34,7 +34,7 @@ def upload_file():
     '''
 
 @user.route('/uploads/<filename>')
-@login_required
+#@login_required
 def uploaded_file(filename):
     return send_from_directory(current_app.config['UPLOAD_FOLDER'],
                                filename)
