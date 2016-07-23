@@ -171,6 +171,7 @@ class Answer(Document):
     created_time = DateTimeField(default=datetime.utcnow(), required=True)
     author = ReferenceField(User)
     question = ReferenceField(Question)
+    parent_answer = ReferenceField('Answer', default=None)
 
     @staticmethod
     def generate_fake(count=50):

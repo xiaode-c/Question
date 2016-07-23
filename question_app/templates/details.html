@@ -26,22 +26,78 @@
     <div id="comments">
         
         {% for ans in answers %}
+        {% if ans.parent_answer == None %}
         <div class="row">
             <div class="col-md-2">
                 <img src="{{url_for("user.uploaded_file", filename=ans.author.avatar)}}" alt="">
             </div>
             <div class="col-md-10">
-                <p><a href="{{url_for('user.user_info', name=question.author.name)}}">{{ans.author.name}}</a></p>
+                <p>
+                    <a href="{{url_for('user.user_info', name=ans.author.name)}}">{{ans.author.name}}</a>
+                    <span class="created_time" style="float:right;">{{ans.created_time}}</span>
+                </p>
         
                 <p>{{ans.content}}</p>
+                <a href="#new-comment" class="reply" value="{{ans.id}}">回复</a>
+            </div>
+            
+        </div>
+        {% else %}
+        <div class="row">
+            <div class="col-md-2">
+                <img src="{{url_for("user.uploaded_file", filename=ans.author.avatar)}}" alt="">
+            </div>
+            <div class="col-md-10">
+                <p>
+                    <a href="{{url_for('user.user_info', name=ans.author.name)}}">{{ans.author.name}}</a>
+                    回复给
+                    <a href="{{url_for('user.user_info', name=ans.parent_answer.author.name)}}">{{ans.parent_answer.author.name}}</a>
+                    <span class="created_time">{{ans.create_time}}</span>
+                </p>
+        
+                <p>{{ans.content}}</p>
+                <a href="#new-comment" class="reply" value="{{ans.id}}">回复</a>
             </div>
         </div>
-        
+
+        {% endif %}
         <hr>
         {% endfor %}
     </div>
 
+<div id="new-comment">
+    <div class="new_comment">
+        <form action="{{ url_for('main.new_comment', id=question.id) }}" method="post">
+            <input type="hidden" id="parent_id" name="parent_id">
+            <textarea class="form-control" rows="5" name="content"></textarea>
+            <input type="submit" class="btn btn-default" value="回复">
+        </form>
+    </div>
+</div>
 </div>
 
+
+
+
+{% endblock %}
+
+
+{% block scripts %}
+
+    $(document).ready(function() {
+        var time = document.getElementsByClassName("created_time");
+        for (var i=0;i<time.length;i++) {
+            time[i].innerHTML = moment(time[i].innerHTML).fromNow();
+        }
+
+        $(document).ready(function(){
+            $("a.reply").click(function(){
+                parent = $(this).attr("value");
+                console.log(parent)
+                $("input#parent_id").val(parent);
+            });
+        });
+
+    });
 
 {% endblock %}

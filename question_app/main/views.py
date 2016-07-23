@@ -76,8 +76,26 @@ def ask():
         return redirect(url_for("main.index"))
     return render_template("ask.html")
 
+@main.route('/questions/<id>/new_comment', methods=["POST", "GET"])
+def new_comment(id):
+    if request.method == "POST":
+        question = Question.objects(id=id).first()
+        content = request.form.get("content")
+        parent_id = request.form.get("parent_id")
+        author = User.objects(name=current_user.name).first()
+        if parent_id == '':
+            parent_answer = None
+        else:
+            parent_answer = Answer.objects(id=parent_id).first()
+        dir(current_user)
+        ans = Answer(content=content, created_time=datetime.utcnow(), author=author, question=question, parent_answer=parent_answer)
+        ans.save()
+        return redirect(url_for("main.question_detail", id=id))
+    return render_template("main.question_detail", id=id)
+
 @main.route("/follow", methods=["POST", "GET"])
 @login_required
 def follow():
     pass
+
 
