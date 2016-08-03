@@ -92,7 +92,7 @@
             <ul>
                 {% for a in answers %}
                 <h4><a href="">{{a.question.title}}</a> <span style="font-size:14px;color:#bbb;">{{a.question.created_time.ctime()}}</span></h4>
-                <li><a href="{{url_for('main.question_detail', id=a.question.id)}}#comments">{{a.content | truncate(100, True, end='...')}}</a></li>
+                <li><a href="{{url_for('main.question_detail', id=a.question.id)}}#comments">{{a.content}}</a></li>
                 <hr>
                 {% endfor %}
             </ul>    

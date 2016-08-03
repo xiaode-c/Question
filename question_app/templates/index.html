@@ -25,6 +25,15 @@
 
                     <a href="" class="question-info">１个回答</a>
                     <a href="" class="question-info">１条评论</a>
+                    <a href="" class="follows">{{question.follow | length }}</a> 
+
+                    {% if current_user not in question.follow %}
+                    <a href="" class="up" value="{{question.id}}">
+                        <span class="glyphicon glyphicon-star-empty"></span>
+                    </a>
+                    {% else  %}
+                        <span class="glyphicon glyphicon-star"></span>
+                    {% endif %}
                     <!--<form action="" method="post">
                         <a href="" class="question-info" value="{{question.id}}">关注＋</a>
                         <input type="hidden" class="{{question.id}}" value="">
@@ -54,6 +63,19 @@
             $("input#parent").val(parent);
         });
 
+        $SCRIPT_ROOT = {{ request.script_root|tojson|safe}};
+
+        $("a.up").bind('click', function() {
+            a_up = $(this);
+            $.getJSON($SCRIPT_ROOT + '/follow', {
+                follows: a_up.prev().text(),
+                question_id: a_up.attr("value")
+            }, function(data) {
+                console.log($(this));
+                a_up.prev().text(data.follows);
+            });
+            return false;
+        });
     });
 
 

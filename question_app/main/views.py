@@ -1,5 +1,5 @@
 
-from flask import render_template, request, flash, redirect, url_for
+from flask import render_template, request, flash, redirect, url_for, jsonify
 from flask_login import current_user
 from datetime import datetime
 from . import main
@@ -96,6 +96,13 @@ def new_comment(id):
 @main.route("/follow", methods=["POST", "GET"])
 @login_required
 def follow():
-    pass
+    question_id = None
+    follows = 0
+    if request.method == "GET":
+        question_id = request.args.get('question_id')
+        user = User.objects(id=current_user.id).first()
+        Question.objects(id=question_id).update_one(push__follow=user)
+        follows = len(Question.objects(id=question_id).first().follow) 
+    return jsonify(follows=follows)
 
 
